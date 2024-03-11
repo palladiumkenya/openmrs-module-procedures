@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="TRUNK-jecihjoy-1100xx0011" author="jecihjoy">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="procedure_order" />
+            </not>
+        </preConditions>
+        <comment>Create procedure_order table</comment>
+        <createTable tableName="procedure_order">
+            <column name="order_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="specimen_source" type="int" />
+            <column name="laterality" type="varchar(20)" />
+            <column name="clinical_history" type="text" />
+            <column name="frequency" type="int"/>
+            <column name="number_of_repeats" type="int"/>
+            <column name="location" type="int"/>
+            <column name="modality" type="int"/>
+            <column name="related_appointment_id" type="int"/>
+            <column name="provider_id" type="int"/>
+            <column name="start_datetime" type="datetime" />
+            <column name="end_datetime" type="datetime" />
+            <column name="outcome" type="int"/>
+            <column name="complication" type="int"/>
+            <column name="report" type="text" />
+
+        </createTable>
+        <addForeignKeyConstraint constraintName="procedure_order_order_id_fk"
+                                 baseTableName="procedure_order" baseColumnNames="order_id"
+                                 referencedTableName="orders" referencedColumnNames="order_id" />
+        <addForeignKeyConstraint constraintName="procedure_order_specimen_source_fk"
+                                 baseTableName="procedure_order" baseColumnNames="specimen_source"
+                                 referencedTableName="concept" referencedColumnNames="concept_id" />
+        <addForeignKeyConstraint constraintName="procedure_order_frequency_fk"
+                                 baseTableName="procedure_order" baseColumnNames="frequency"
+                                 referencedTableName="order_frequency" referencedColumnNames="order_frequency_id"/>
+        <addForeignKeyConstraint constraintName="procedure_order_location_fk"
+                                 baseTableName="procedure_order" baseColumnNames="location"
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
+        <addForeignKeyConstraint constraintName="procedure_order_modality_fk"
+                                 baseTableName="procedure_order" baseColumnNames="modality"
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
+        <addForeignKeyConstraint constraintName="procedure_order_related_procedure_fk"
+                                 baseTableName="procedure_order" baseColumnNames="related_appointment_id"
+                                 referencedTableName="procedure_order" referencedColumnNames="order_id"/>
+        <addForeignKeyConstraint constraintName="procedure_order_provider_id_fk"
+                                 baseTableName="procedure_order" baseColumnNames="provider_id" referencedTableName="provider"
+                                 referencedColumnNames="provider_id" />
+        <addForeignKeyConstraint constraintName="procedure_order_outcome_fk"
+                                 baseTableName="procedure_order" baseColumnNames="outcome"
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
+        <addForeignKeyConstraint constraintName="procedure_order_complication_fk"
+                                 baseTableName="procedure_order" baseColumnNames="complication"
+                                 referencedTableName="conditions" referencedColumnNames="condition_id"/>
+        <createIndex indexName="procedure_order_frequency_index" tableName="procedure_order">
+            <column name="frequency"/>
+        </createIndex>
+        <createIndex indexName="procedure_order_specimen_source_index" tableName="procedure_order">
+            <column name="specimen_source"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
