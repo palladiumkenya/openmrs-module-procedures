@@ -8,6 +8,10 @@ import org.openmrs.module.procedures.api.model.Procedure;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.RestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
+import org.openmrs.module.webservices.rest.web.representation.CustomRepresentation;
+import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentation;
+import org.openmrs.module.webservices.rest.web.representation.FullRepresentation;
+import org.openmrs.module.webservices.rest.web.representation.RefRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DataDelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
@@ -52,13 +56,61 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 	public void purge(Procedure procedure, RequestContext requestContext) throws ResponseException {
 		
 	}
-
+	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation representation) {
 		DelegatingResourceDescription description = new DelegatingResourceDescription();
-		description.addProperty("uuid");
-		description.addProperty("startDatetime");
-		description.addProperty("endDatetime");
+		if (representation instanceof RefRepresentation) {
+			description.addProperty("uuid");
+			description.addProperty("patient", Representation.REF);
+			description.addProperty("encounter", Representation.REF);
+			description.addProperty("procedureOrder", Representation.REF);
+			description.addProperty("concept", Representation.REF);
+			description.addProperty("procedureReason", Representation.REF);
+			description.addProperty("category", Representation.REF);
+			description.addProperty("bodySite", Representation.REF);
+			description.addProperty("partOf", Representation.REF);
+			description.addProperty("startDatetime");
+			description.addProperty("endDatetime");
+			description.addProperty("status");
+			description.addProperty("statusReason", Representation.REF);
+			description.addProperty("outcome");
+			description.addProperty("location", Representation.REF);
+		} else if (representation instanceof DefaultRepresentation) {
+			description.addProperty("uuid");
+			description.addProperty("patient", Representation.DEFAULT);
+			description.addProperty("encounter", Representation.DEFAULT);
+			description.addProperty("procedureOrder", Representation.DEFAULT);
+			description.addProperty("concept", Representation.DEFAULT);
+			description.addProperty("procedureReason", Representation.DEFAULT);
+			description.addProperty("category", Representation.DEFAULT);
+			description.addProperty("bodySite", Representation.DEFAULT);
+			description.addProperty("partOf", Representation.DEFAULT);
+			description.addProperty("startDatetime");
+			description.addProperty("endDatetime");
+			description.addProperty("status");
+			description.addProperty("statusReason", Representation.DEFAULT);
+			description.addProperty("outcome");
+			description.addProperty("location", Representation.DEFAULT);
+		} else if (representation instanceof FullRepresentation) {
+			description.addProperty("uuid");
+			description.addProperty("patient", Representation.REF);
+			description.addProperty("encounter", Representation.REF);
+			description.addProperty("procedureOrder", Representation.FULL);
+			description.addProperty("concept", Representation.FULL);
+			description.addProperty("procedureReason", Representation.REF);
+			description.addProperty("category", Representation.FULL);
+			description.addProperty("bodySite", Representation.FULL);
+			description.addProperty("partOf", Representation.REF);
+			description.addProperty("startDatetime");
+			description.addProperty("endDatetime");
+			description.addProperty("status");
+			description.addProperty("statusReason", Representation.FULL);
+			description.addProperty("outcome");
+			description.addProperty("location", Representation.REF);
+		} else if (representation instanceof CustomRepresentation) { // custom rep
+			description = null;
+		}
 		return description;
 	}
 }
