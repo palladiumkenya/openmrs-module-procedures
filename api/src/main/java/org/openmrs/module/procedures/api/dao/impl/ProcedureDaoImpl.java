@@ -33,4 +33,9 @@ public class ProcedureDaoImpl implements ProcedureDao {
 		return Optional.ofNullable((Procedure) criteria.add(eq("uuid", uuid)).uniqueResult());
 	}
 	
+	@Override
+	public Procedure saveOrUpdate(Procedure procedure) {
+		getCurrentSession().saveOrUpdate(procedure);
+		return procedure;
+	}
 }

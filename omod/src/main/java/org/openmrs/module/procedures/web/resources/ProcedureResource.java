@@ -23,6 +23,7 @@ import org.openmrs.module.webservices.rest.web.representation.RefRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DataDelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
+import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + "/procedure", supportedClass = Procedure.class, supportedOpenmrsVersions = {
@@ -57,12 +58,35 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 	
 	@Override
 	public Procedure save(Procedure procedure) {
-		return new Procedure();
+		return procedureService.saveOrUpdate(procedure);
 	}
 	
 	@Override
 	public void purge(Procedure procedure, RequestContext requestContext) throws ResponseException {
 		
+	}
+	
+	@Override
+	public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
+		DelegatingResourceDescription description = new DelegatingResourceDescription();
+		description.addProperty("patient");
+		description.addProperty("encounter");
+		description.addProperty("procedureOrder");
+		description.addProperty("concept");
+		description.addProperty("procedureReason");
+		description.addProperty("category");
+		description.addProperty("bodySite");
+		description.addProperty("partOf");
+		description.addProperty("startDatetime");
+		description.addProperty("endDatetime");
+		description.addProperty("status");
+		description.addProperty("statusReason");
+		description.addProperty("outcome");
+		description.addProperty("location");
+		description.addProperty("participants");
+		description.addProperty("procedureResults");
+		description.addProperty("complications");
+		return description;
 	}
 	
 	@Override

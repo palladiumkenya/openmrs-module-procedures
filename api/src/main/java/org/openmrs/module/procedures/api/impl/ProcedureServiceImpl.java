@@ -4,6 +4,8 @@ import javax.transaction.Transactional;
 
 import java.util.Optional;
 
+import org.openmrs.api.ConditionService;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.procedures.api.ProcedureService;
 import org.openmrs.module.procedures.api.dao.ProcedureDao;
 import org.openmrs.module.procedures.api.model.Procedure;
@@ -20,5 +22,10 @@ public class ProcedureServiceImpl implements ProcedureService {
 	@Override
 	public Optional<Procedure> getProcedureByUuid(String uuid) {
 		return procedureDao.getProcedureByUuid(uuid);
+	}
+	
+	@Override
+	public Procedure saveOrUpdate(Procedure procedure) {
+		return procedureDao.saveOrUpdate(procedure);
 	}
 }
