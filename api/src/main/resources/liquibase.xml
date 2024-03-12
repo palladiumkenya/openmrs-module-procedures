@@ -108,4 +108,11 @@
             <column name="provider_id" type="int"/>
         </createTable>
     </changeSet>
+
+    <changeSet id="${project.parent.artifactId}-202403122315" author="jecihjoy">
+        <createTable tableName="procedure_results">
+            <column name="procedure_id" type="int"/>
+            <column name="obs_id" type="int"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

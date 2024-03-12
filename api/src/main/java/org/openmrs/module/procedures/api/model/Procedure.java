@@ -12,16 +12,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.openmrs.BaseFormRecordableOpenmrsData;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
+import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.Provider;
 
@@ -103,6 +107,10 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "procedure_participants", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "provider_id"))
 	private Set<Provider> participants;
+	
+	@OneToMany
+	@JoinTable(name = "procedure_results", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "obs_id"))
+	private List<Obs> procedureResults;
 	
 	@ManyToOne
 	@JoinColumn(name = "location_id")
@@ -241,6 +249,21 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 			this.participants = new HashSet<>();
 		}
 		this.participants.add(provider);
+	}
+	
+	public List<Obs> getProcedureResults() {
+		return procedureResults;
+	}
+	
+	public void setProcedureResults(List<Obs> procedureResults) {
+		this.procedureResults = procedureResults;
+	}
+	
+	public void addProcedureResult(Obs obs) {
+		if (this.procedureResults == null) {
+			this.procedureResults = new ArrayList<>();
+		}
+		this.procedureResults.add(obs);
 	}
 	
 	@Override

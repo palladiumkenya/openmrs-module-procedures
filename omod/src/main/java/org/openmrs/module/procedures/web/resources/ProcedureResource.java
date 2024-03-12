@@ -1,9 +1,12 @@
 package org.openmrs.module.procedures.web.resources;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.openmrs.Obs;
 import org.openmrs.Provider;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.procedures.api.ProcedureService;
@@ -81,6 +84,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("outcome");
 			description.addProperty("location", Representation.REF);
 			description.addProperty("participants", Representation.REF);
+			description.addProperty("procedureResults", Representation.REF);
 		} else if (representation instanceof DefaultRepresentation) {
 			description.addProperty("uuid");
 			description.addProperty("patient", Representation.DEFAULT);
@@ -98,6 +102,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("outcome");
 			description.addProperty("location", Representation.DEFAULT);
 			description.addProperty("participants", Representation.DEFAULT);
+			description.addProperty("procedureResults", Representation.DEFAULT);
 		} else if (representation instanceof FullRepresentation) {
 			description.addProperty("uuid");
 			description.addProperty("patient", Representation.REF);
@@ -115,6 +120,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("outcome");
 			description.addProperty("location", Representation.REF);
 			description.addProperty("participants", Representation.REF);
+			description.addProperty("procedureResults", Representation.REF);
 		} else if (representation instanceof CustomRepresentation) { // custom rep
 			description = null;
 		}
@@ -129,6 +135,18 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 		}
 		catch (Exception e) {
 			return new HashSet<>();
+		}
+	}
+	
+	@PropertyGetter(value = "procedureResults")
+	public List<Obs> getProcedureResults(Procedure instance) {
+		try {
+			List<Obs> procedureResults = instance.getProcedureResults();
+			System.out.println(instance.getProcedureResults().size());
+			return procedureResults;
+		}
+		catch (Exception e) {
+			return new ArrayList<>();
 		}
 	}
 }
