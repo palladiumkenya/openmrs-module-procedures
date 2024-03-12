@@ -20,4 +20,7 @@
 
     <!-- Wraps QueueService methods in DB transactions and OpenMRS interceptors,
     which set audit info like dateCreated, changedBy, etc.-->
+
+    <context:annotation-config/>
+    <context:component-scan base-package="org.openmrs.module.procedures" />
 </beans>

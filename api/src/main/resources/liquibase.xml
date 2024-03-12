@@ -67,4 +67,26 @@
             <column name="specimen_source"/>
         </createIndex>
     </changeSet>
+
+    <changeSet id="TRUNK-jecihjoy-1100yy0011" author="jecihjoy">
+        <createTable tableName="procudure">
+            <column name="procedure_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="patient_id" type="int"/>
+            <column name="encounter_id" type="int"/>
+            <column name="procedure_order_id" type="int"/>
+            <column name="concept" type="int"/>
+            <column name="procedure_reason" type="int" />
+            <column name="category" type="int"/>
+            <column name="body_site" type="int"/>
+            <column name="part_of" type="int"/>
+            <column name="start_datetime" type="datetime" />
+            <column name="end_datetime" type="datetime" />
+            <column name="status" type="varchar(20)" />
+            <column name="status_reason" type="int"/>
+            <column name="outcome" type="varchar(20)" />
+            <column name="location_id" type="int"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

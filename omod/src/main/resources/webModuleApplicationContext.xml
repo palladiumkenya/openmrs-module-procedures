@@ -22,8 +22,7 @@
 
 	<!-- Add here beans related to the web context -->
 
-	<context:annotation-config/>
-	<context:component-scan base-package="org.openmrs.module.procedures" />
+	<context:component-scan base-package="org.openmrs.module.procedures.web" />
  
 		
 </beans>
