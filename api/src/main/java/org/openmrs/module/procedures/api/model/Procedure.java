@@ -1,5 +1,6 @@
 package org.openmrs.module.procedures.api.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,16 +9,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.openmrs.BaseFormRecordableOpenmrsData;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Patient;
+import org.openmrs.Provider;
 
 @Entity
 @Table(name = "procedures")
@@ -94,6 +100,10 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	private ProcedureOutcome outcome;
 	
 	// participants, report (obs), complications,
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "procedure_participants", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "provider_id"))
+	private Set<Provider> participants;
+	
 	@ManyToOne
 	@JoinColumn(name = "location_id")
 	private Location location;
@@ -216,6 +226,21 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	
 	public void setStatusReason(Concept statusReason) {
 		this.statusReason = statusReason;
+	}
+	
+	public void setParticipants(Set<Provider> participants) {
+		this.participants = participants;
+	}
+	
+	public Set<Provider> getParticipants() {
+		return participants;
+	}
+	
+	public void addParticipant(Provider provider) {
+		if (this.participants == null) {
+			this.participants = new HashSet<>();
+		}
+		this.participants.add(provider);
 	}
 	
 	@Override

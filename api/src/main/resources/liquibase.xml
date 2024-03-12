@@ -101,4 +101,11 @@
             <column name="void_reason" type="varchar(255)"/>
         </createTable>
     </changeSet>
+
+    <changeSet id="${project.parent.artifactId}-202403122234" author="jecihjoy">
+        <createTable tableName="procedure_participants">
+            <column name="procedure_id" type="int"/>
+            <column name="provider_id" type="int"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

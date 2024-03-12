@@ -5,7 +5,6 @@ import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 import org.openmrs.module.procedures.api.model.Procedure;
-import org.springframework.transaction.annotation.Transactional;
 
 public interface ProcedureService {
 	

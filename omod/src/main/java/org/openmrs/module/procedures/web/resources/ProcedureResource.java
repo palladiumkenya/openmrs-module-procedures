@@ -1,12 +1,16 @@
 package org.openmrs.module.procedures.web.resources;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
+import org.openmrs.Provider;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.procedures.api.ProcedureService;
 import org.openmrs.module.procedures.api.model.Procedure;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.RestConstants;
+import org.openmrs.module.webservices.rest.web.annotation.PropertyGetter;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
 import org.openmrs.module.webservices.rest.web.representation.CustomRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentation;
@@ -76,6 +80,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("statusReason", Representation.REF);
 			description.addProperty("outcome");
 			description.addProperty("location", Representation.REF);
+			description.addProperty("participants", Representation.REF);
 		} else if (representation instanceof DefaultRepresentation) {
 			description.addProperty("uuid");
 			description.addProperty("patient", Representation.DEFAULT);
@@ -92,6 +97,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("statusReason", Representation.DEFAULT);
 			description.addProperty("outcome");
 			description.addProperty("location", Representation.DEFAULT);
+			description.addProperty("participants", Representation.DEFAULT);
 		} else if (representation instanceof FullRepresentation) {
 			description.addProperty("uuid");
 			description.addProperty("patient", Representation.REF);
@@ -108,9 +114,21 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("statusReason", Representation.FULL);
 			description.addProperty("outcome");
 			description.addProperty("location", Representation.REF);
+			description.addProperty("participants", Representation.REF);
 		} else if (representation instanceof CustomRepresentation) { // custom rep
 			description = null;
 		}
 		return description;
+	}
+	
+	@PropertyGetter(value = "participants")
+	public Set<Provider> getParticipants(Procedure instance) {
+		try {
+			Set<Provider> participants = instance.getParticipants();
+			return participants;
+		}
+		catch (Exception e) {
+			return new HashSet<>();
+		}
 	}
 }
