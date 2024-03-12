@@ -15,6 +15,7 @@ import org.openmrs.module.webservices.rest.web.v1_0.resource.openmrs2_2.OrderRes
 @Resource(name = RestConstants.VERSION_1 + "/order", supportedClass = Order.class, supportedOpenmrsVersions = {
         "2.6.* - 9.*" })
 public class OrderResource2_3 extends OrderResource2_2 {
+	
 	private String PROCEDURE_ORDER_TYPE_UUID = "4237a01f-29c5-4167-9d8e-96d6e590aa33";
 	
 	@Override

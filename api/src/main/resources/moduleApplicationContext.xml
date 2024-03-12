@@ -23,4 +23,30 @@
 
     <context:annotation-config/>
     <context:component-scan base-package="org.openmrs.module.procedures" />
+
+    <bean id="procedureService"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target">
+            <bean class="org.openmrs.module.procedures.api.impl.ProcedureServiceImpl">
+                <property name="procedureDao" ref="procedureDao"/>
+            </bean>
+        </property>
+        <property name="preInterceptors" ref="serviceInterceptors"/>
+        <property name="transactionAttributeSource" ref="transactionAttributeSource"/>
+    </bean>
+    <bean parent="serviceContext">
+        <property name="moduleService">
+            <list>
+                <value>org.openmrs.module.procedures.api.ProcedureService</value>
+                <ref bean="procedureService"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="procedureDao" class="org.openmrs.module.procedures.api.dao.impl.ProcedureDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
 </beans>

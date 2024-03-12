@@ -20,7 +20,7 @@ import org.openmrs.Location;
 import org.openmrs.Patient;
 
 @Entity
-@Table(name = "procedure")
+@Table(name = "procedures")
 public class Procedure extends BaseFormRecordableOpenmrsData {
 	
 	public enum ProcedureStatus {
