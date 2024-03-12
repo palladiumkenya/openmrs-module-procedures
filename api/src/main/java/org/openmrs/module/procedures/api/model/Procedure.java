@@ -23,6 +23,7 @@ import java.util.Set;
 
 import org.openmrs.BaseFormRecordableOpenmrsData;
 import org.openmrs.Concept;
+import org.openmrs.Condition;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Obs;
@@ -103,7 +104,6 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	@Enumerated(EnumType.STRING)
 	private ProcedureOutcome outcome;
 	
-	// participants, report (obs), complications,
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "procedure_participants", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "provider_id"))
 	private Set<Provider> participants;
@@ -111,6 +111,10 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	@OneToMany
 	@JoinTable(name = "procedure_results", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "obs_id"))
 	private List<Obs> procedureResults;
+	
+	@OneToMany
+	@JoinTable(name = "procedure_complications", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "condition_id"))
+	private List<Condition> complications;
 	
 	@ManyToOne
 	@JoinColumn(name = "location_id")
@@ -264,6 +268,21 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 			this.procedureResults = new ArrayList<>();
 		}
 		this.procedureResults.add(obs);
+	}
+	
+	public List<Condition> getComplications() {
+		return complications;
+	}
+	
+	public void setComplications(List<Condition> complications) {
+		this.complications = complications;
+	}
+	
+	public void addComplication(Condition condition) {
+		if (this.complications == null) {
+			this.complications = new ArrayList<>();
+		}
+		this.complications.add(condition);
 	}
 	
 	@Override

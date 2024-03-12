@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.openmrs.Condition;
 import org.openmrs.Obs;
 import org.openmrs.Provider;
 import org.openmrs.api.context.Context;
@@ -85,6 +86,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("location", Representation.REF);
 			description.addProperty("participants", Representation.REF);
 			description.addProperty("procedureResults", Representation.REF);
+			description.addProperty("complications", Representation.REF);
 		} else if (representation instanceof DefaultRepresentation) {
 			description.addProperty("uuid");
 			description.addProperty("patient", Representation.DEFAULT);
@@ -103,6 +105,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("location", Representation.DEFAULT);
 			description.addProperty("participants", Representation.DEFAULT);
 			description.addProperty("procedureResults", Representation.DEFAULT);
+			description.addProperty("complications", Representation.DEFAULT);
 		} else if (representation instanceof FullRepresentation) {
 			description.addProperty("uuid");
 			description.addProperty("patient", Representation.REF);
@@ -121,6 +124,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("location", Representation.REF);
 			description.addProperty("participants", Representation.REF);
 			description.addProperty("procedureResults", Representation.REF);
+			description.addProperty("complications", Representation.REF);
 		} else if (representation instanceof CustomRepresentation) { // custom rep
 			description = null;
 		}
@@ -142,8 +146,18 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 	public List<Obs> getProcedureResults(Procedure instance) {
 		try {
 			List<Obs> procedureResults = instance.getProcedureResults();
-			System.out.println(instance.getProcedureResults().size());
 			return procedureResults;
+		}
+		catch (Exception e) {
+			return new ArrayList<>();
+		}
+	}
+	
+	@PropertyGetter(value = "complications")
+	public List<Condition> getComplications(Procedure instance) {
+		try {
+			List<Condition> complications = instance.getComplications();
+			return complications;
 		}
 		catch (Exception e) {
 			return new ArrayList<>();

@@ -115,4 +115,11 @@
             <column name="obs_id" type="int"/>
         </createTable>
     </changeSet>
+
+    <changeSet id="${project.parent.artifactId}-202403122332" author="jecihjoy">
+        <createTable tableName="procedure_complications">
+            <column name="procedure_id" type="int"/>
+            <column name="condition_id" type="int"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
