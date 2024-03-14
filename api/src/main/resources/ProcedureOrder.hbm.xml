@@ -8,7 +8,9 @@
 
         <key column="order_id" not-null="true" on-delete="cascade" />
 
+        <many-to-one name="bodySite" class="org.openmrs.Concept" column="body_site" />
         <many-to-one name="specimenSource" class="org.openmrs.Concept" column="specimen_source" />
+        <many-to-one name="specimenType" class="org.openmrs.Concept" column="specimen_type" />
 
         <property name="laterality" column="laterality" length="20" not-null="false">
             <type name="org.hibernate.type.EnumType">

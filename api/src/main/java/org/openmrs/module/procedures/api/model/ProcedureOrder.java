@@ -17,6 +17,10 @@ public class ProcedureOrder extends ServiceOrder {
 	
 	public static final long serialVersionUID = 1L;
 	
+	public Concept specimenType;
+	
+	public Concept bodySite;
+	
 	private ProcedureOrder relatedProcedure;
 	
 	public Concept modality;
@@ -131,5 +135,21 @@ public class ProcedureOrder extends ServiceOrder {
 	
 	public void setReport(String report) {
 		this.report = report;
+	}
+	
+	public Concept getSpecimenType() {
+		return specimenType;
+	}
+	
+	public void setSpecimenType(Concept specimenType) {
+		this.specimenType = specimenType;
+	}
+	
+	public Concept getBodySite() {
+		return bodySite;
+	}
+	
+	public void setBodySite(Concept bodySite) {
+		this.bodySite = bodySite;
 	}
 }

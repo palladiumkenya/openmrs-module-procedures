@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
-    <changeSet id="TRUNK-jecihjoy-1100xx0011" author="jecihjoy">
+    <changeSet id="TRUNK-jecihjoy-1100xx0011updated" author="jecihjoy">
 
         <preConditions onFail="MARK_RAN">
             <not>
@@ -17,7 +17,9 @@
             <column name="order_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" />
             </column>
+            <column name="body_site" type="int" />
             <column name="specimen_source" type="int" />
+            <column name="specimen_type" type="int" />
             <column name="laterality" type="varchar(20)" />
             <column name="clinical_history" type="text" />
             <column name="frequency" type="int"/>
