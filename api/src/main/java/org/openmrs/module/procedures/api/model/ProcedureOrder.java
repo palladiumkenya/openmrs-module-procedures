@@ -9,29 +9,22 @@
  */
 package org.openmrs.module.procedures.api.model;
 
-import java.util.Date;
+import java.util.Set;
 
-import org.openmrs.*;
+import org.openmrs.Concept;
+import org.openmrs.ServiceOrder;
 
 public class ProcedureOrder extends ServiceOrder {
 	
 	public static final long serialVersionUID = 1L;
 	
+	public Concept specimenType;
+	
+	public Concept bodySite;
+	
 	private ProcedureOrder relatedProcedure;
 	
-	public Concept modality;
-	
-	private Provider participant;
-	
-	private Date startDatetime;
-	
-	private Date endDatetime;
-	
-	private Concept outcome;
-	
-	private Condition complication;
-	
-	private String report;
+	private Set<Procedure> procedures;
 	
 	public ProcedureOrder() {
 	}
@@ -69,12 +62,28 @@ public class ProcedureOrder extends ServiceOrder {
 		return newOrder;
 	}
 	
-	public Concept getModality() {
-		return modality;
+	public Concept getSpecimenType() {
+		return specimenType;
 	}
 	
-	public void setModality(Concept modality) {
-		this.modality = modality;
+	public void setSpecimenType(Concept specimenType) {
+		this.specimenType = specimenType;
+	}
+	
+	public Concept getBodySite() {
+		return bodySite;
+	}
+	
+	public void setBodySite(Concept bodySite) {
+		this.bodySite = bodySite;
+	}
+	
+	public Set<Procedure> getProcedures() {
+		return procedures;
+	}
+	
+	public void setProcedures(Set<Procedure> procedures) {
+		this.procedures = procedures;
 	}
 	
 	public ProcedureOrder getRelatedProcedure() {
@@ -83,53 +92,5 @@ public class ProcedureOrder extends ServiceOrder {
 	
 	public void setRelatedProcedure(ProcedureOrder relatedProcedure) {
 		this.relatedProcedure = relatedProcedure;
-	}
-	
-	public Provider getParticipant() {
-		return participant;
-	}
-	
-	public void setParticipant(Provider participant) {
-		this.participant = participant;
-	}
-	
-	public Date getStartDatetime() {
-		return startDatetime;
-	}
-	
-	public void setStartDatetime(Date startDatetime) {
-		this.startDatetime = startDatetime;
-	}
-	
-	public Date getEndDatetime() {
-		return endDatetime;
-	}
-	
-	public void setEndDatetime(Date endDatetime) {
-		this.endDatetime = endDatetime;
-	}
-	
-	public Concept getOutcome() {
-		return outcome;
-	}
-	
-	public void setOutcome(Concept outcome) {
-		this.outcome = outcome;
-	}
-	
-	public Condition getComplication() {
-		return complication;
-	}
-	
-	public void setComplication(Condition complication) {
-		this.complication = complication;
-	}
-	
-	public String getReport() {
-		return report;
-	}
-	
-	public void setReport(String report) {
-		this.report = report;
 	}
 }

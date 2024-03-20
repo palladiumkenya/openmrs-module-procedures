@@ -21,8 +21,10 @@ import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentat
 import org.openmrs.module.webservices.rest.web.representation.FullRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.RefRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
+import org.openmrs.module.webservices.rest.web.resource.api.PageableResult;
 import org.openmrs.module.webservices.rest.web.resource.impl.DataDelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
+import org.openmrs.module.webservices.rest.web.resource.impl.NeedsPaging;
 import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
@@ -67,6 +69,14 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 	}
 	
 	@Override
+	protected PageableResult doSearch(RequestContext requestContext) {
+		String orderUuid = requestContext.getParameter("orderUuid");
+		String orderTypeUuid = requestContext.getParameter("orderTypeUuid");
+		
+		return new NeedsPaging<>(new ArrayList<>(), requestContext);
+	}
+	
+	@Override
 	public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
 		DelegatingResourceDescription description = new DelegatingResourceDescription();
 		description.addProperty("patient");
@@ -86,6 +96,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 		description.addProperty("participants");
 		description.addProperty("procedureResults");
 		description.addProperty("complications");
+		description.addProperty("procedureReport");
 		return description;
 	}
 	
@@ -107,6 +118,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("status");
 			description.addProperty("statusReason", Representation.REF);
 			description.addProperty("outcome");
+			description.addProperty("procedureReport");
 			description.addProperty("location", Representation.REF);
 			description.addProperty("participants", Representation.REF);
 			description.addProperty("procedureResults", Representation.REF);
@@ -126,6 +138,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("status");
 			description.addProperty("statusReason", Representation.DEFAULT);
 			description.addProperty("outcome");
+			description.addProperty("procedureReport");
 			description.addProperty("location", Representation.DEFAULT);
 			description.addProperty("participants", Representation.DEFAULT);
 			description.addProperty("procedureResults", Representation.DEFAULT);
@@ -145,6 +158,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("status");
 			description.addProperty("statusReason", Representation.FULL);
 			description.addProperty("outcome");
+			description.addProperty("procedureReport");
 			description.addProperty("location", Representation.REF);
 			description.addProperty("participants", Representation.REF);
 			description.addProperty("procedureResults", Representation.REF);

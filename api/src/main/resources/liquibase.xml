@@ -5,9 +5,8 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
-    <changeSet id="TRUNK-jecihjoy-1100xx0011" author="jecihjoy">
-
-        <preConditions onFail="MARK_RAN">
+    <changeSet id="${project.parent.artifactId}-202403101900" author="jecihjoy">
+        <preConditions onFail="MARK_RAN" >
             <not>
                 <tableExists tableName="procedure_order" />
             </not>
@@ -17,27 +16,28 @@
             <column name="order_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" />
             </column>
+            <column name="body_site" type="int" />
             <column name="specimen_source" type="int" />
+            <column name="specimen_type" type="int" />
             <column name="laterality" type="varchar(20)" />
             <column name="clinical_history" type="text" />
             <column name="frequency" type="int"/>
             <column name="number_of_repeats" type="int"/>
             <column name="location" type="int"/>
-            <column name="modality" type="int"/>
-            <column name="related_appointment_id" type="int"/>
-            <column name="provider_id" type="int"/>
-            <column name="start_datetime" type="datetime" />
-            <column name="end_datetime" type="datetime" />
-            <column name="outcome" type="int"/>
-            <column name="complication" type="int"/>
-            <column name="report" type="text" />
-
+            <column name="related_procedure_id" type="int"/>
         </createTable>
+
         <addForeignKeyConstraint constraintName="procedure_order_order_id_fk"
                                  baseTableName="procedure_order" baseColumnNames="order_id"
                                  referencedTableName="orders" referencedColumnNames="order_id" />
+        <addForeignKeyConstraint constraintName="procedure_order_body_site_fk"
+                                 baseTableName="procedure_order" baseColumnNames="body_site"
+                                 referencedTableName="concept" referencedColumnNames="concept_id" />
         <addForeignKeyConstraint constraintName="procedure_order_specimen_source_fk"
                                  baseTableName="procedure_order" baseColumnNames="specimen_source"
+                                 referencedTableName="concept" referencedColumnNames="concept_id" />
+        <addForeignKeyConstraint constraintName="procedure_order_specimen_type_fk"
+                                 baseTableName="procedure_order" baseColumnNames="specimen_type"
                                  referencedTableName="concept" referencedColumnNames="concept_id" />
         <addForeignKeyConstraint constraintName="procedure_order_frequency_fk"
                                  baseTableName="procedure_order" baseColumnNames="frequency"
@@ -45,21 +45,9 @@
         <addForeignKeyConstraint constraintName="procedure_order_location_fk"
                                  baseTableName="procedure_order" baseColumnNames="location"
                                  referencedTableName="concept" referencedColumnNames="concept_id"/>
-        <addForeignKeyConstraint constraintName="procedure_order_modality_fk"
-                                 baseTableName="procedure_order" baseColumnNames="modality"
-                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
         <addForeignKeyConstraint constraintName="procedure_order_related_procedure_fk"
                                  baseTableName="procedure_order" baseColumnNames="related_appointment_id"
                                  referencedTableName="procedure_order" referencedColumnNames="order_id"/>
-        <addForeignKeyConstraint constraintName="procedure_order_provider_id_fk"
-                                 baseTableName="procedure_order" baseColumnNames="provider_id" referencedTableName="provider"
-                                 referencedColumnNames="provider_id" />
-        <addForeignKeyConstraint constraintName="procedure_order_outcome_fk"
-                                 baseTableName="procedure_order" baseColumnNames="outcome"
-                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
-        <addForeignKeyConstraint constraintName="procedure_order_complication_fk"
-                                 baseTableName="procedure_order" baseColumnNames="complication"
-                                 referencedTableName="conditions" referencedColumnNames="condition_id"/>
         <createIndex indexName="procedure_order_frequency_index" tableName="procedure_order">
             <column name="frequency"/>
         </createIndex>
@@ -68,7 +56,12 @@
         </createIndex>
     </changeSet>
 
-    <changeSet id="${project.parent.artifactId}-202403121900" author="jecihjoy">
+    <changeSet id="${project.parent.artifactId}-202403121901" author="jecihjoy">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="procedures"/>
+            </not>
+        </preConditions>
         <createTable tableName="procedures">
             <column name="procedure_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" />
@@ -87,6 +80,7 @@
             <column name="status_reason" type="int"/>
             <column name="outcome" type="varchar(20)" />
             <column name="location_id" type="int"/>
+            <column name="report" type="text"/>
             <column name="form_namespace_and_path" type="VARCHAR(255)"/>
             <column name="uuid" type="char(38)"><constraints nullable="false" unique="true" /></column>
             <column name="creator" type="int"><constraints nullable="false"/></column>
@@ -122,4 +116,18 @@
             <column name="condition_id" type="int"/>
         </createTable>
     </changeSet>
+
+
+    <changeSet id="${project.parent.artifactId}-2024031419999" author="jecihjoy">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="procedures"/>
+        </preConditions>
+        <addColumn tableName="procedures">
+            <column name="modality" type="int"/>
+        </addColumn>
+        <addForeignKeyConstraint constraintName="procedure__modality_fk"
+                                 baseTableName="procedures" baseColumnNames="modality"
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
+    </changeSet>
+
 </databaseChangeLog>

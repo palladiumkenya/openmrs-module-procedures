@@ -8,7 +8,9 @@
 
         <key column="order_id" not-null="true" on-delete="cascade" />
 
+        <many-to-one name="bodySite" class="org.openmrs.Concept" column="body_site" />
         <many-to-one name="specimenSource" class="org.openmrs.Concept" column="specimen_source" />
+        <many-to-one name="specimenType" class="org.openmrs.Concept" column="specimen_type" />
 
         <property name="laterality" column="laterality" length="20" not-null="false">
             <type name="org.hibernate.type.EnumType">
@@ -21,13 +23,10 @@
         <many-to-one name="frequency" class="org.openmrs.OrderFrequency" />
         <many-to-one name="location" class="org.openmrs.Concept" />
 
-        <many-to-one name="modality" class="org.openmrs.Concept" />
-        <many-to-one name="relatedProcedure" class="org.openmrs.module.procedures.api.model.ProcedureOrder"  column="related_appointment_id"/>
-        <many-to-one name="participant" class="org.openmrs.Provider" column="provider_id"/>
-        <property name="startDatetime" type="java.util.Date" column="start_datetime" length="19" />
-        <property name="endDatetime" type="java.util.Date" column="end_datetime" length="19"/>
-        <many-to-one name="outcome" class="org.openmrs.Concept" />
-        <many-to-one name="complication" class="org.openmrs.Condition" />
-        <property name="report" type="java.lang.String" column="report" length="65535" />
+        <many-to-one name="relatedProcedure" class="org.openmrs.module.procedures.api.model.ProcedureOrder"  column="related_procedure_id"/>
+        <set name="procedures" table="procedures" inverse="true" cascade="all">
+            <key column="procedure_order_id"/>
+            <one-to-many class="org.openmrs.module.procedures.api.model.Procedure"/>
+        </set>
     </joined-subclass>
 </hibernate-mapping>
