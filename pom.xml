@@ -260,7 +260,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.build.outputEncoding>UTF-8</project.build.outputEncoding>
 		<webServicesRest.version>2.32.0</webServicesRest.version>
-		<openmrs.platform.version>2.6.4</openmrs.platform.version>
+		<openmrs.platform.version>2.6.1</openmrs.platform.version>
 		<openmrs.platform.tools.version>2.4.0</openmrs.platform.tools.version>
 		<powerMockitoVersion>2.0.9</powerMockitoVersion>
 	</properties>
