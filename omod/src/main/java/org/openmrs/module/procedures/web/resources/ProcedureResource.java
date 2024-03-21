@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.openmrs.Condition;
+import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Provider;
 import org.openmrs.api.context.Context;
@@ -93,6 +94,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 		description.addProperty("statusReason");
 		description.addProperty("outcome");
 		description.addProperty("location");
+		description.addProperty("encounters");
 		description.addProperty("participants");
 		description.addProperty("procedureResults");
 		description.addProperty("complications");
@@ -120,6 +122,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("outcome");
 			description.addProperty("procedureReport");
 			description.addProperty("location", Representation.REF);
+			description.addProperty("encounters", Representation.REF);
 			description.addProperty("participants", Representation.REF);
 			description.addProperty("procedureResults", Representation.REF);
 			description.addProperty("complications", Representation.REF);
@@ -140,6 +143,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("outcome");
 			description.addProperty("procedureReport");
 			description.addProperty("location", Representation.DEFAULT);
+			description.addProperty("encounters", Representation.DEFAULT);
 			description.addProperty("participants", Representation.DEFAULT);
 			description.addProperty("procedureResults", Representation.DEFAULT);
 			description.addProperty("complications", Representation.DEFAULT);
@@ -160,6 +164,7 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("outcome");
 			description.addProperty("procedureReport");
 			description.addProperty("location", Representation.REF);
+			description.addProperty("encounters", Representation.REF);
 			description.addProperty("participants", Representation.REF);
 			description.addProperty("procedureResults", Representation.REF);
 			description.addProperty("complications", Representation.REF);
@@ -196,6 +201,17 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 		try {
 			List<Condition> complications = instance.getComplications();
 			return complications;
+		}
+		catch (Exception e) {
+			return new ArrayList<>();
+		}
+	}
+	
+	@PropertyGetter(value = "encounters")
+	public List<Encounter> getEncounters(Procedure instance) {
+		try {
+			List<Encounter> encounters = instance.getEncounters();
+			return encounters;
 		}
 		catch (Exception e) {
 			return new ArrayList<>();

@@ -130,4 +130,22 @@
                                  referencedTableName="concept" referencedColumnNames="concept_id"/>
     </changeSet>
 
+    <changeSet id="${project.parent.artifactId}-20240321111111" author="jecihjoy">
+        <preConditions>
+            <not>
+                <tableExists tableName="encounter_procedures"/>
+            </not>
+        </preConditions>
+        <createTable tableName="encounter_procedures">
+            <column name="procedure_id" type="int"/>
+            <column name="encounter_id" type="int"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="encounter_procedures_procedure_id_fk"
+                                 baseTableName="encounter_procedures" baseColumnNames="procedure_id"
+                                 referencedTableName="procedures" referencedColumnNames="procedure_id"/>
+        <addForeignKeyConstraint constraintName="encounter_procedures_encounter_id_fk"
+                                 baseTableName="encounter_procedures" baseColumnNames="encounter_id"
+                                 referencedTableName="encounter" referencedColumnNames="encounter_id"/>
+    </changeSet>
+
 </databaseChangeLog>

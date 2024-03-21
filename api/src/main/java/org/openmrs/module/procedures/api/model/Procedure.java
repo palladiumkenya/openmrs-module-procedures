@@ -64,6 +64,10 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	@JoinColumn(name = "encounter_id")
 	private Encounter encounter;
 	
+	@OneToMany
+	@JoinTable(name = "encounter_procedures", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "encounter_id"))
+	private List<Encounter> encounters;
+	
 	@ManyToOne
 	@JoinColumn(name = "procedure_order_id")
 	private ProcedureOrder procedureOrder;
@@ -306,6 +310,14 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	
 	public void setModality(Concept modality) {
 		this.modality = modality;
+	}
+	
+	public List<Encounter> getEncounters() {
+		return encounters;
+	}
+	
+	public void setEncounters(List<Encounter> encounters) {
+		this.encounters = encounters;
 	}
 	
 	@Override
