@@ -64,7 +64,7 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	@JoinColumn(name = "encounter_id")
 	private Encounter encounter;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "encounter_procedures", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "encounter_id"))
 	private List<Encounter> encounters;
 	
