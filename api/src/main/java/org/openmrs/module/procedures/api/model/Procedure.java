@@ -10,25 +10,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.openmrs.BaseFormRecordableOpenmrsData;
 import org.openmrs.Concept;
 import org.openmrs.Condition;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
-import org.openmrs.Obs;
 import org.openmrs.Patient;
-import org.openmrs.Provider;
 
 @Entity
 @Table(name = "procedures")
@@ -59,14 +54,6 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	@ManyToOne
 	@JoinColumn(name = "patient_id")
 	private Patient patient;
-	
-	@ManyToOne
-	@JoinColumn(name = "encounter_id")
-	private Encounter encounter;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "encounter_procedures", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "encounter_id"))
-	private List<Encounter> encounters;
 	
 	@ManyToOne
 	@JoinColumn(name = "procedure_order_id")
@@ -111,25 +98,21 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	@Column(name = "report")
 	private String procedureReport;
 	
-	@ManyToMany
-	@JoinTable(name = "procedure_participants", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "provider_id"))
-	private Set<Provider> participants;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "procedure_results", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "obs_id"))
-	private List<Obs> procedureResults;
+	@ManyToOne
+	@JoinColumn(name = "modality")
+	public Concept modality;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "procedure_complications", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "condition_id"))
 	private List<Condition> complications;
 	
+	@OneToMany
+	@JoinTable(name = "encounter_procedures", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "encounter_id"))
+	private List<Encounter> encounters;
+	
 	@ManyToOne
 	@JoinColumn(name = "location_id")
 	private Location location;
-	
-	@ManyToOne
-	@JoinColumn(name = "modality")
-	public Concept modality;
 	
 	public Integer getProcedureId() {
 		return procedureId;
@@ -145,14 +128,6 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	
 	public void setPatient(Patient patient) {
 		this.patient = patient;
-	}
-	
-	public Encounter getEncounter() {
-		return encounter;
-	}
-	
-	public void setEncounter(Encounter encounter) {
-		this.encounter = encounter;
 	}
 	
 	public ProcedureOrder getProcedureOrder() {
@@ -249,36 +224,6 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	
 	public void setStatusReason(Concept statusReason) {
 		this.statusReason = statusReason;
-	}
-	
-	public void setParticipants(Set<Provider> participants) {
-		this.participants = participants;
-	}
-	
-	public Set<Provider> getParticipants() {
-		return participants;
-	}
-	
-	public void addParticipant(Provider provider) {
-		if (this.participants == null) {
-			this.participants = new HashSet<>();
-		}
-		this.participants.add(provider);
-	}
-	
-	public List<Obs> getProcedureResults() {
-		return procedureResults;
-	}
-	
-	public void setProcedureResults(List<Obs> procedureResults) {
-		this.procedureResults = procedureResults;
-	}
-	
-	public void addProcedureResult(Obs obs) {
-		if (this.procedureResults == null) {
-			this.procedureResults = new ArrayList<>();
-		}
-		this.procedureResults.add(obs);
 	}
 	
 	public List<Condition> getComplications() {
