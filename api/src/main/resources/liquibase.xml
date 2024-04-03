@@ -46,7 +46,7 @@
                                  baseTableName="procedure_order" baseColumnNames="location"
                                  referencedTableName="concept" referencedColumnNames="concept_id"/>
         <addForeignKeyConstraint constraintName="procedure_order_related_procedure_fk"
-                                 baseTableName="procedure_order" baseColumnNames="related_appointment_id"
+                                 baseTableName="procedure_order" baseColumnNames="related_procedure_id"
                                  referencedTableName="procedure_order" referencedColumnNames="order_id"/>
         <createIndex indexName="procedure_order_frequency_index" tableName="procedure_order">
             <column name="frequency"/>
