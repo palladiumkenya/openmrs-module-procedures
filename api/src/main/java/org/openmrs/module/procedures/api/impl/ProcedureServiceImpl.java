@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.openmrs.Encounter;
+import org.openmrs.EncounterProvider;
 import org.openmrs.api.ConditionService;
 import org.openmrs.api.EncounterService;
-import org.openmrs.api.ObsService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.procedures.api.ProcedureService;
 import org.openmrs.module.procedures.api.dao.ProcedureDao;
@@ -33,7 +33,7 @@ public class ProcedureServiceImpl implements ProcedureService {
     public Procedure saveOrUpdate(Procedure procedure) {
         List<Encounter> encounters = handEncounter(procedure);
         procedure.setEncounters(encounters);
-        procedure.setEncounter(encounters.get(0));
+        handleProcedureComplications(procedure);
         return procedureDao.saveOrUpdate(procedure);
     }
 
@@ -42,44 +42,25 @@ public class ProcedureServiceImpl implements ProcedureService {
             return new ArrayList<>();
         }
         EncounterService service = Context.getEncounterService();
-        List<Encounter> savedEncounters = new ArrayList<>();
         for (Encounter encounter : procedure.getEncounters()) {
-            System.out.println("Before saving encounter ----------------------------" + encounter.getEncounterDatetime());
-            Encounter saved = service.saveEncounter(encounter);
-            System.out.println("After saving encounter ----------------------------");
-            if (saved == null) {
-                System.out.println("Encounter not save -------------------------");
-            } else {
-                System.out
-                        .println("Saved encounter ID -------------------------+++++++++++++ " + saved.getEncounterId());
+            for (EncounterProvider provider : encounter.getEncounterProviders()) {
+                provider.setEncounter(encounter);
             }
-        }
-        if (!procedure.getComplications().isEmpty()) {
-            ConditionService conditionService = Context.getConditionService();
-            procedure.getComplications().forEach(c -> {
-                c.setEncounter(savedEncounters.get(0));
-                conditionService.saveCondition(c);
-            });
+            service.saveEncounter(encounter);
         }
         return procedure.getEncounters();
     }
 
     private void handleProcedureComplications(Procedure procedure) {
-        ConditionService service = Context.getConditionService();
-        procedure.getComplications().forEach(p -> {
-            if (p.getId() == null) {
-                service.saveCondition(p);
-            }
-        });
+        if (procedure.getComplications() != null && !procedure.getComplications().isEmpty()) {
+            ConditionService conditionService = Context.getConditionService();
+            Encounter encounter = (!procedure.getEncounters().isEmpty()) ? procedure.getEncounters().get(0) : null;
+            procedure.getComplications().forEach(condition -> {
+                if (encounter != null) {
+                    condition.setEncounter(encounter);
+                }
+                conditionService.saveCondition(condition);
+            });
+        }
     }
-
-    private void handleProcedureResults(Procedure procedure) {
-        ObsService service = Context.getObsService();
-        procedure.getProcedureResults().forEach(ob -> {
-            if (ob.getId() == null) {
-                service.saveObs(ob, "");
-            }
-        });
-    }
-
 }

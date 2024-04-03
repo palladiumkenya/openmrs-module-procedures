@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
     <changeSet id="${project.parent.artifactId}-202403101900" author="jecihjoy">
-        <preConditions onFail="MARK_RAN" >
+        <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="procedure_order" />
+                <tableExists tableName="procedure_order"/>
             </not>
         </preConditions>
         <comment>Create procedure_order table</comment>
         <createTable tableName="procedure_order">
             <column name="order_id" type="int" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false" />
+                <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="body_site" type="int" />
-            <column name="specimen_source" type="int" />
-            <column name="specimen_type" type="int" />
-            <column name="laterality" type="varchar(20)" />
-            <column name="clinical_history" type="text" />
+            <column name="body_site" type="int"/>
+            <column name="specimen_source" type="int"/>
+            <column name="specimen_type" type="int"/>
+            <column name="laterality" type="varchar(20)"/>
+            <column name="clinical_history" type="text"/>
             <column name="frequency" type="int"/>
             <column name="number_of_repeats" type="int"/>
             <column name="location" type="int"/>
@@ -29,16 +29,16 @@
 
         <addForeignKeyConstraint constraintName="procedure_order_order_id_fk"
                                  baseTableName="procedure_order" baseColumnNames="order_id"
-                                 referencedTableName="orders" referencedColumnNames="order_id" />
+                                 referencedTableName="orders" referencedColumnNames="order_id"/>
         <addForeignKeyConstraint constraintName="procedure_order_body_site_fk"
                                  baseTableName="procedure_order" baseColumnNames="body_site"
-                                 referencedTableName="concept" referencedColumnNames="concept_id" />
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
         <addForeignKeyConstraint constraintName="procedure_order_specimen_source_fk"
                                  baseTableName="procedure_order" baseColumnNames="specimen_source"
-                                 referencedTableName="concept" referencedColumnNames="concept_id" />
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
         <addForeignKeyConstraint constraintName="procedure_order_specimen_type_fk"
                                  baseTableName="procedure_order" baseColumnNames="specimen_type"
-                                 referencedTableName="concept" referencedColumnNames="concept_id" />
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
         <addForeignKeyConstraint constraintName="procedure_order_frequency_fk"
                                  baseTableName="procedure_order" baseColumnNames="frequency"
                                  referencedTableName="order_frequency" referencedColumnNames="order_frequency_id"/>
@@ -64,59 +64,50 @@
         </preConditions>
         <createTable tableName="procedures">
             <column name="procedure_id" type="int" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false" />
+                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="patient_id" type="int"/>
             <column name="encounter_id" type="int"/>
             <column name="procedure_order_id" type="int"/>
             <column name="concept" type="int"/>
-            <column name="procedure_reason" type="int" />
+            <column name="procedure_reason" type="int"/>
             <column name="category" type="int"/>
             <column name="body_site" type="int"/>
             <column name="part_of" type="int"/>
-            <column name="start_datetime" type="datetime" />
-            <column name="end_datetime" type="datetime" />
-            <column name="status" type="varchar(20)" />
+            <column name="start_datetime" type="datetime"/>
+            <column name="end_datetime" type="datetime"/>
+            <column name="status" type="varchar(20)"/>
             <column name="status_reason" type="int"/>
-            <column name="outcome" type="varchar(20)" />
+            <column name="outcome" type="varchar(20)"/>
             <column name="location_id" type="int"/>
             <column name="report" type="text"/>
             <column name="form_namespace_and_path" type="VARCHAR(255)"/>
-            <column name="uuid" type="char(38)"><constraints nullable="false" unique="true" /></column>
-            <column name="creator" type="int"><constraints nullable="false"/></column>
-            <column name="date_created" type="datetime"><constraints nullable="false"/></column>
-            <column name="changed_by" type="int"/>
-            <column name="date_changed" type="datetime" />
-            <column name="voided" type="boolean" defaultValueBoolean="false">
-                <constraints nullable="false" />
+            <column name="uuid" type="char(38)">
+                <constraints nullable="false" unique="true"/>
             </column>
-            <column name="voided_by" type="int" />
-            <column name="date_voided" type="datetime" />
+            <column name="creator" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="datetime"/>
+            <column name="voided" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int"/>
+            <column name="date_voided" type="datetime"/>
             <column name="void_reason" type="varchar(255)"/>
         </createTable>
     </changeSet>
 
-    <changeSet id="${project.parent.artifactId}-202403122234" author="jecihjoy">
-        <createTable tableName="procedure_participants">
-            <column name="procedure_id" type="int"/>
-            <column name="provider_id" type="int"/>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="${project.parent.artifactId}-202403122315" author="jecihjoy">
-        <createTable tableName="procedure_results">
-            <column name="procedure_id" type="int"/>
-            <column name="obs_id" type="int"/>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="${project.parent.artifactId}-202403122332" author="jecihjoy">
+    <changeSet id="${project.parent.artifactId}-102404011261200" author="jecihjoy">
         <createTable tableName="procedure_complications">
             <column name="procedure_id" type="int"/>
             <column name="condition_id" type="int"/>
         </createTable>
     </changeSet>
-
 
     <changeSet id="${project.parent.artifactId}-2024031419999" author="jecihjoy">
         <preConditions onFail="MARK_RAN">
@@ -130,15 +121,19 @@
                                  referencedTableName="concept" referencedColumnNames="concept_id"/>
     </changeSet>
 
-    <changeSet id="${project.parent.artifactId}-20240321111111" author="jecihjoy">
+    <changeSet id="${project.parent.artifactId}-1024032111880101" author="jecihjoy">
         <preConditions>
             <not>
                 <tableExists tableName="encounter_procedures"/>
             </not>
         </preConditions>
         <createTable tableName="encounter_procedures">
-            <column name="procedure_id" type="int"/>
-            <column name="encounter_id" type="int"/>
+            <column name="procedure_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="encounter_id" type="int">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
         <addForeignKeyConstraint constraintName="encounter_procedures_procedure_id_fk"
                                  baseTableName="encounter_procedures" baseColumnNames="procedure_id"

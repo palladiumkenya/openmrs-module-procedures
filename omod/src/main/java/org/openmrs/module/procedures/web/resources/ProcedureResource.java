@@ -1,15 +1,12 @@
 package org.openmrs.module.procedures.web.resources;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.openmrs.Condition;
 import org.openmrs.Encounter;
-import org.openmrs.Obs;
-import org.openmrs.Provider;
+import org.openmrs.api.ConditionService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.procedures.api.ProcedureService;
 import org.openmrs.module.procedures.api.model.Procedure;
@@ -108,7 +105,6 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 		if (representation instanceof RefRepresentation) {
 			description.addProperty("uuid");
 			description.addProperty("patient", Representation.REF);
-			description.addProperty("encounter", Representation.REF);
 			description.addProperty("procedureOrder", Representation.REF);
 			description.addProperty("concept", Representation.REF);
 			description.addProperty("procedureReason", Representation.REF);
@@ -123,13 +119,10 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("procedureReport");
 			description.addProperty("location", Representation.REF);
 			description.addProperty("encounters", Representation.REF);
-			description.addProperty("participants", Representation.REF);
-			description.addProperty("procedureResults", Representation.REF);
 			description.addProperty("complications", Representation.REF);
 		} else if (representation instanceof DefaultRepresentation) {
 			description.addProperty("uuid");
 			description.addProperty("patient", Representation.DEFAULT);
-			description.addProperty("encounter", Representation.DEFAULT);
 			description.addProperty("procedureOrder", Representation.DEFAULT);
 			description.addProperty("concept", Representation.DEFAULT);
 			description.addProperty("procedureReason", Representation.DEFAULT);
@@ -144,13 +137,10 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("procedureReport");
 			description.addProperty("location", Representation.DEFAULT);
 			description.addProperty("encounters", Representation.DEFAULT);
-			description.addProperty("participants", Representation.DEFAULT);
-			description.addProperty("procedureResults", Representation.DEFAULT);
 			description.addProperty("complications", Representation.DEFAULT);
 		} else if (representation instanceof FullRepresentation) {
 			description.addProperty("uuid");
 			description.addProperty("patient", Representation.REF);
-			description.addProperty("encounter", Representation.REF);
 			description.addProperty("procedureOrder", Representation.FULL);
 			description.addProperty("concept", Representation.FULL);
 			description.addProperty("procedureReason", Representation.REF);
@@ -165,8 +155,6 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("procedureReport");
 			description.addProperty("location", Representation.REF);
 			description.addProperty("encounters", Representation.REF);
-			description.addProperty("participants", Representation.REF);
-			description.addProperty("procedureResults", Representation.REF);
 			description.addProperty("complications", Representation.REF);
 		} else if (representation instanceof CustomRepresentation) { // custom rep
 			description = null;
@@ -174,33 +162,16 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 		return description;
 	}
 	
-	@PropertyGetter(value = "participants")
-	public Set<Provider> getParticipants(Procedure instance) {
-		try {
-			Set<Provider> participants = instance.getParticipants();
-			return participants;
-		}
-		catch (Exception e) {
-			return new HashSet<>();
-		}
-	}
-	
-	@PropertyGetter(value = "procedureResults")
-	public List<Obs> getProcedureResults(Procedure instance) {
-		try {
-			List<Obs> procedureResults = instance.getProcedureResults();
-			return procedureResults;
-		}
-		catch (Exception e) {
-			return new ArrayList<>();
-		}
-	}
-	
 	@PropertyGetter(value = "complications")
 	public List<Condition> getComplications(Procedure instance) {
 		try {
-			List<Condition> complications = instance.getComplications();
-			return complications;
+			ConditionService conditionService = Context.getConditionService();
+			Encounter encounter = (!instance.getEncounters().isEmpty()) ? instance.getEncounters().get(0) : null;
+			if (encounter != null) {
+				List<Condition> complications = conditionService.getConditionsByEncounter(encounter);
+				return complications;
+			}
+			return new ArrayList<>();
 		}
 		catch (Exception e) {
 			return new ArrayList<>();
