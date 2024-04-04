@@ -128,6 +128,8 @@ public class ProcedureOrderSubclassHandler extends BaseDelegatingSubclassHandler
 		d.addProperty("orderType");
 		d.addProperty("bodySite");
 		d.addProperty("specimenType");
+		d.addProperty("commentToFulfiller");
+		d.addProperty("scheduledDate");
 		d.addProperty("relatedProcedure");
 		return d;
 	}
