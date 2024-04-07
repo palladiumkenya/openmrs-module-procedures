@@ -1,4 +1,4 @@
-openmrs-module-basicmodule
+openmrs-module-basic-module
 ==========================
 
 A demonstration module for new OpenMRS module developers
