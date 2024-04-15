@@ -1,6 +1,5 @@
 package org.openmrs.module.procedures.api.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,13 +13,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.openmrs.BaseFormRecordableOpenmrsData;
 import org.openmrs.Concept;
-import org.openmrs.Condition;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Patient;
@@ -101,10 +98,6 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	@ManyToOne
 	@JoinColumn(name = "modality")
 	public Concept modality;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "procedure_complications", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "condition_id"))
-	private List<Condition> complications;
 	
 	@OneToMany
 	@JoinTable(name = "encounter_procedures", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "encounter_id"))
@@ -224,21 +217,6 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	
 	public void setStatusReason(Concept statusReason) {
 		this.statusReason = statusReason;
-	}
-	
-	public List<Condition> getComplications() {
-		return complications;
-	}
-	
-	public void setComplications(List<Condition> complications) {
-		this.complications = complications;
-	}
-	
-	public void addComplication(Condition condition) {
-		if (this.complications == null) {
-			this.complications = new ArrayList<>();
-		}
-		this.complications.add(condition);
 	}
 	
 	public String getProcedureReport() {

@@ -33,7 +33,6 @@ public class ProcedureServiceImpl implements ProcedureService {
     public Procedure saveOrUpdate(Procedure procedure) {
         List<Encounter> encounters = handEncounter(procedure);
         procedure.setEncounters(encounters);
-        handleProcedureComplications(procedure);
         return procedureDao.saveOrUpdate(procedure);
     }
 
@@ -49,18 +48,5 @@ public class ProcedureServiceImpl implements ProcedureService {
             service.saveEncounter(encounter);
         }
         return procedure.getEncounters();
-    }
-
-    private void handleProcedureComplications(Procedure procedure) {
-        if (procedure.getComplications() != null && !procedure.getComplications().isEmpty()) {
-            ConditionService conditionService = Context.getConditionService();
-            Encounter encounter = (!procedure.getEncounters().isEmpty()) ? procedure.getEncounters().get(0) : null;
-            procedure.getComplications().forEach(condition -> {
-                if (encounter != null) {
-                    condition.setEncounter(encounter);
-                }
-                conditionService.saveCondition(condition);
-            });
-        }
     }
 }
