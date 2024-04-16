@@ -102,18 +102,6 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="${project.parent.artifactId}-102404011261200" author="jecihjoy">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="procedure_complications"/>
-            </not>
-        </preConditions>
-        <createTable tableName="procedure_complications">
-            <column name="procedure_id" type="int"/>
-            <column name="condition_id" type="int"/>
-        </createTable>
-    </changeSet>
-
     <changeSet id="${project.parent.artifactId}-2024031419999" author="jecihjoy">
         <preConditions onFail="MARK_RAN">
             <tableExists tableName="procedures"/>

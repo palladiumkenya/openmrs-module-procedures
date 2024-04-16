@@ -94,7 +94,6 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 		description.addProperty("encounters");
 		description.addProperty("participants");
 		description.addProperty("procedureResults");
-		description.addProperty("complications");
 		description.addProperty("procedureReport");
 		return description;
 	}
@@ -119,7 +118,6 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("procedureReport");
 			description.addProperty("location", Representation.REF);
 			description.addProperty("encounters", Representation.REF);
-			description.addProperty("complications", Representation.REF);
 		} else if (representation instanceof DefaultRepresentation) {
 			description.addProperty("uuid");
 			description.addProperty("patient", Representation.DEFAULT);
@@ -137,7 +135,6 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("procedureReport");
 			description.addProperty("location", Representation.DEFAULT);
 			description.addProperty("encounters", Representation.DEFAULT);
-			description.addProperty("complications", Representation.DEFAULT);
 		} else if (representation instanceof FullRepresentation) {
 			description.addProperty("uuid");
 			description.addProperty("patient", Representation.REF);
@@ -155,28 +152,12 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 			description.addProperty("procedureReport");
 			description.addProperty("location", Representation.REF);
 			description.addProperty("encounters", Representation.REF);
-			description.addProperty("complications", Representation.REF);
 		} else if (representation instanceof CustomRepresentation) { // custom rep
 			description = null;
 		}
 		return description;
 	}
 	
-	@PropertyGetter(value = "complications")
-	public List<Condition> getComplications(Procedure instance) {
-		try {
-			ConditionService conditionService = Context.getConditionService();
-			Encounter encounter = (!instance.getEncounters().isEmpty()) ? instance.getEncounters().get(0) : null;
-			if (encounter != null) {
-				List<Condition> complications = conditionService.getConditionsByEncounter(encounter);
-				return complications;
-			}
-			return new ArrayList<>();
-		}
-		catch (Exception e) {
-			return new ArrayList<>();
-		}
-	}
 	
 	@PropertyGetter(value = "encounters")
 	public List<Encounter> getEncounters(Procedure instance) {
