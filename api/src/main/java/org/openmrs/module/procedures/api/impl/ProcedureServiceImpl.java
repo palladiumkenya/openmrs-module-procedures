@@ -74,29 +74,6 @@ public class ProcedureServiceImpl implements ProcedureService {
 						obs.setPerson(encounter.getPatient());
 						obs.setObsDatetime(encounter.getEncounterDatetime());
 						obs.setConcept(tobs.getConcept());
-						try {
-							String z = tobs.getUuid();
-							System.out.println("Obs uuid: " + z);
-							String t = tobs.getConcept().getUuid();
-							System.out.println("Obs Concept uuid: " + t);
-							String m = tobs.getValueCoded().getUuid();
-							System.out.println("Obs Value Coded: " + m);
-						}
-						catch (Exception e) {}
-						
-						if (tobs.getGroupMembers() != null) {
-							Set<Obs> gobset = new HashSet<>();
-							for (Obs gobs : tobs.getGroupMembers()) {
-								Obs mobs = new Obs();
-								mobs.setPerson(encounter.getPatient());
-								mobs.setObsDatetime(encounter.getEncounterDatetime());
-								mobs.setConcept(gobs.getConcept());
-								mobs.setValueCoded(gobs.getValueCoded());
-								gobset.add(mobs);
-							}
-							obs.setGroupMembers(gobset);
-						}
-						
 						obs.setValueCoded(tobs.getValueCoded());
 						obs.setEncounter(enc);
 						obset.add(obs);
