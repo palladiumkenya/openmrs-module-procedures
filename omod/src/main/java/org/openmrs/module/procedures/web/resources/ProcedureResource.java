@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.openmrs.Condition;
 import org.openmrs.Encounter;
-import org.openmrs.api.ConditionService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.procedures.api.ProcedureService;
 import org.openmrs.module.procedures.api.model.Procedure;
@@ -157,7 +155,6 @@ public class ProcedureResource extends DataDelegatingCrudResource<Procedure> {
 		}
 		return description;
 	}
-	
 	
 	@PropertyGetter(value = "encounters")
 	public List<Encounter> getEncounters(Procedure instance) {
