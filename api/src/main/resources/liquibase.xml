@@ -136,4 +136,28 @@
                                  referencedTableName="encounter" referencedColumnNames="encounter_id"/>
     </changeSet>
 
+    <changeSet id="${project.parent.artifactId}-202410021940" author="makombe">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="medical_supplies_order"/>
+            </not>
+        </preConditions>
+        <comment>Create medical_supplies_order table</comment>
+        <createTable tableName="medical_supplies_order">
+            <column name="order_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="medical_supplies_inventory_id" type="int"/>
+            <column name="quantity" type="int"/>
+			<column name="quantity_units" type="varchar(50)" />
+            <column name="brand_name" type="varchar(100)"/>
+        </createTable>
+
+        <addForeignKeyConstraint constraintName="medical_supplies_order_order_id_fk"
+                                 baseTableName="medical_supplies_order" baseColumnNames="order_id"
+                                 referencedTableName="orders" referencedColumnNames="order_id"/>
+    
+    </changeSet>
+    
+
 </databaseChangeLog>
