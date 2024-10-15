@@ -158,6 +158,48 @@
                                  referencedTableName="orders" referencedColumnNames="order_id"/>
     
     </changeSet>
+    <changeSet id="${project.parent.artifactId}-202410090917" author="makombe">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="medical_supply_dispense"/>
+            </not>
+        </preConditions>
+         <comment>Create medical_supply_dispense table</comment>
+        <createTable tableName="medical_supply_dispense">
+            <column name="medical_supply_dispense_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="patient_id" type="int"/>
+            <column name="encounter_id" type="int"/>
+            <column name="medical_supply_order_id" type="int"/>
+            <column name="concept" type="int"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="status_reason" type="int"/>
+            <column name="location_id" type="int"/>
+            <column name="quantity" type="int"/>
+            <column name="quantity_units" type="int"/>
+            <column name="dispenser" type="int"/>
+            <column name="date_dispensed" type="datetime"/>
+            <column name="form_namespace_and_path" type="VARCHAR(255)"/>
+            <column name="uuid" type="char(38)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="creator" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="datetime"/>
+            <column name="voided" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int"/>
+            <column name="date_voided" type="datetime"/>
+            <column name="void_reason" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
     
 
 </databaseChangeLog>
