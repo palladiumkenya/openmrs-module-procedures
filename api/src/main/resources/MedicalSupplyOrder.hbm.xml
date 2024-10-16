@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <joined-subclass name="org.openmrs.module.procedures.api.model.MedicalSupplyOrder" extends="org.openmrs.Order" table="medical_supplies_order" lazy="false">
+
+        <key column="order_id" not-null="true" on-delete="cascade" />
+        <property name="medicalSuppliesInventoryId" type="int" column="medical_supplies_inventory_id" length="11" />
+        <property name="quantity" type="int" column="quantity" length="11" />
+        <property name="quantityUnits" type="java.lang.String" column="quantity_units" length="50" />
+        <property name="brandName" type="java.lang.String" column="brand_name" length="255" />
+
+    </joined-subclass>
+</hibernate-mapping>
