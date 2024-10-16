@@ -1,4 +1,4 @@
-package org.openmrs.module.procedures.api.impl;
+package org.openmrs.module.orderexpansion.api.impl;
 
 import javax.transaction.Transactional;
 
@@ -13,9 +13,9 @@ import org.openmrs.EncounterProvider;
 import org.openmrs.Obs;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.procedures.api.ProcedureService;
-import org.openmrs.module.procedures.api.dao.ProcedureDao;
-import org.openmrs.module.procedures.api.model.Procedure;
+import org.openmrs.module.orderexpansion.api.ProcedureService;
+import org.openmrs.module.orderexpansion.api.dao.ProcedureDao;
+import org.openmrs.module.orderexpansion.api.model.Procedure;
 
 @Transactional
 public class ProcedureServiceImpl implements ProcedureService {

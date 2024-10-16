@@ -1,4 +1,4 @@
-package org.openmrs.module.procedures.web.resources;
+package org.openmrs.module.orderexpansion.web.resources;
 
 import org.openmrs.DrugOrder;
 import org.openmrs.Order;
@@ -7,8 +7,8 @@ import org.openmrs.ReferralOrder;
 import org.openmrs.TestOrder;
 import org.openmrs.api.OrderContext;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.procedures.api.model.MedicalSupplyOrder;
-import org.openmrs.module.procedures.api.model.ProcedureOrder;
+import org.openmrs.module.orderexpansion.api.model.MedicalSupplyOrder;
+import org.openmrs.module.orderexpansion.api.model.ProcedureOrder;
 import org.openmrs.module.webservices.rest.web.RestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
 import org.openmrs.module.webservices.rest.web.v1_0.resource.openmrs2_2.OrderResource2_2;

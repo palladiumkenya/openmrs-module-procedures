@@ -3,19 +3,18 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>procedures</artifactId>
+		<artifactId>orderexpansion</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>procedures-omod</artifactId>
+	<artifactId>orderexpansion-omod</artifactId>
 	<packaging>jar</packaging>
-	<name>Procedure Module OMOD</name>
-	<description>OpenMRS module project for Procedure Module</description>
-
+	<name>Order Expansion Module OMOD</name>
+	<description>OpenMRS module for management of order extension</description>
 	<dependencies>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>procedures-api</artifactId>
+			<artifactId>orderexpansion-api</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>

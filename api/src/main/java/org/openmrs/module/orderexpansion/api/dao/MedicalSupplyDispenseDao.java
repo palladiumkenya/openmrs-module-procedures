@@ -1,10 +1,10 @@
-package org.openmrs.module.procedures.api.dao;
+package org.openmrs.module.orderexpansion.api.dao;
 
 import javax.validation.constraints.NotNull;
 
 import java.util.Optional;
 
-import org.openmrs.module.procedures.api.model.MedicalSupplyDispense;
+import org.openmrs.module.orderexpansion.api.model.MedicalSupplyDispense;
 
 public interface MedicalSupplyDispenseDao {
 	

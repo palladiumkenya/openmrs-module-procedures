@@ -1,4 +1,4 @@
-package org.openmrs.module.procedures.api.model;
+package org.openmrs.module.orderexpansion.api.model;
 
 import org.openmrs.ServiceOrder;
 

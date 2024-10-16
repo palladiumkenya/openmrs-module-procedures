@@ -1,4 +1,4 @@
-package org.openmrs.module.procedures.api.dao.impl;
+package org.openmrs.module.orderexpansion.api.dao.impl;
 
 import static org.hibernate.criterion.Restrictions.eq;
 
@@ -7,8 +7,8 @@ import java.util.Optional;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.openmrs.module.procedures.api.dao.MedicalSupplyDispenseDao;
-import org.openmrs.module.procedures.api.model.MedicalSupplyDispense;
+import org.openmrs.module.orderexpansion.api.dao.MedicalSupplyDispenseDao;
+import org.openmrs.module.orderexpansion.api.model.MedicalSupplyDispense;
 
 public class MedicalSupplyDispenseDaoImpl implements MedicalSupplyDispenseDao {
 	

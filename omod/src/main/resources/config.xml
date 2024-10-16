@@ -6,13 +6,13 @@
 	<id>${project.parent.artifactId}</id>
 	<name>${project.parent.name}</name>
 	<version>${project.parent.version}</version>
-	<package>org.openmrs.module.procedures</package>
+	<package>org.openmrs.module.orderexpansion</package>
 	<author>jecihjoy</author>
 	<description>
 		${project.parent.description}
 	</description>
 
-	<activator>org.openmrs.module.procedures.ProceduresActivator</activator>
+	<activator>org.openmrs.module.orderexpansion.ProceduresActivator</activator>
 
 	<require_version>2.0.5 - 2.*</require_version>
 
