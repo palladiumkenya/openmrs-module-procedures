@@ -1,8 +1,8 @@
-package org.openmrs.module.procedures.api;
+package org.openmrs.module.orderexpansion.api;
 
 import java.util.Optional;
 
-import org.openmrs.module.procedures.api.model.MedicalSupplyDispense;
+import org.openmrs.module.orderexpansion.api.model.MedicalSupplyDispense;
 import org.springframework.lang.NonNull;
 
 public interface MedicalSupplyDispenseService {

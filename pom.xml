@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>procedures</artifactId>
+	<artifactId>orderexpansion</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Procedures Module</name>
-	<description>OpenMRS module for management of procedures.</description>
+	<name>Order Expansion Module</name>
+	<description>OpenMRS module for management of order extension</description>
 
 
 	<scm>

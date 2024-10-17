@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>procedures</artifactId>
+		<artifactId>orderexpansion</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>procedures-api</artifactId>
+	<artifactId>orderexpansion-api</artifactId>
 	<packaging>jar</packaging>
 	<name>Procedure Module API</name>
 	<description>API project for Procedure Module</description>

@@ -1,4 +1,4 @@
-name: CI for Openmrs-module-procedures
+name: CI for Openmrs-module-orderexpansion
 on:
   push:
     branches: [ main, 2.x ]
@@ -18,18 +18,18 @@ jobs:
         command_timeout: 200m
         script: |
           cd /apps/github-workflows/kenyaemr-modules
-          sudo rm -rf openmrs-module-procedures
-          sudo mkdir openmrs-module-procedures
-          sudo chown -R cicd2:cicd2 openmrs-module-procedures
-          git config --global --add safe.directory /apps/github-workflows/kenyaemr-modules/openmrs-module-procedures
-          cd /apps/github-workflows/kenyaemr-modules/openmrs-module-procedures
-          git clone -b 2.x https://github.com/palladiumkenya/openmrs-module-procedures.git /apps/github-workflows/kenyaemr-modules/openmrs-module-procedures
-          sudo chown -R cicd2:cicd2 /apps/github-workflows/kenyaemr-modules/openmrs-module-procedures
+          sudo rm -rf openmrs-module-orderexpansion
+          sudo mkdir openmrs-module-orderexpansion
+          sudo chown -R cicd2:cicd2 openmrs-module-orderexpansion
+          git config --global --add safe.directory /apps/github-workflows/kenyaemr-modules/openmrs-module-orderexpansion
+          cd /apps/github-workflows/kenyaemr-modules/openmrs-module-orderexpansion
+          git clone -b 2.x https://github.com/palladiumkenya/openmrs-module-orderexpansion.git /apps/github-workflows/kenyaemr-modules/openmrs-module-orderexpansion
+          sudo chown -R cicd2:cicd2 /apps/github-workflows/kenyaemr-modules/openmrs-module-orderexpansion
           git status
           mvn license:format
           sudo mvn clean install -DskipTests
-          sudo rm -rf /var/lib/OpenMRS/modules/procedures-*.omod
-          sudo cp -r /apps/github-workflows/kenyaemr-modules/openmrs-module-procedures/omod/target/procedures-*.omod /var/lib/OpenMRS/modules/
+          sudo rm -rf /var/lib/OpenMRS/modules/orderexpansion-*.omod
+          sudo cp -r /apps/github-workflows/kenyaemr-modules/openmrs-module-orderexpansion/omod/target/orderexpansion-*.omod /var/lib/OpenMRS/modules/
           sudo chown -R tomcat:tomcat /var/lib/OpenMRS/modules/
           sudo chmod +r /var/lib/OpenMRS/modules/*.omod
           sudo chmod 755 /var/lib/OpenMRS/modules/*.omod
@@ -51,17 +51,17 @@ jobs:
         command_timeout: 200m
         script: |
           cd /apps/githubworkflows/kenyaemr-modules
-          sudo rm -rf openmrs-module-procedures
-          sudo mkdir openmrs-module-procedures
-          sudo chown -R cicd:cicd openmrs-module-procedures
-          git config --global --add safe.directory /apps/githubworkflows/kenyaemr-modules/openmrs-module-procedures
-          cd /apps/githubworkflows/kenyaemr-modules/openmrs-module-procedures
-          git clone -b main https://github.com/palladiumkenya/openmrs-module-procedures.git .
+          sudo rm -rf openmrs-module-orderexpansion
+          sudo mkdir openmrs-module-orderexpansion
+          sudo chown -R cicd:cicd openmrs-module-orderexpansion
+          git config --global --add safe.directory /apps/githubworkflows/kenyaemr-modules/openmrs-module-orderexpansion
+          cd /apps/githubworkflows/kenyaemr-modules/openmrs-module-orderexpansion
+          git clone -b main https://github.com/palladiumkenya/openmrs-module-orderexpansion.git .
           git status
           mvn license:format
           sudo mvn clean install -DskipTests
-          sudo rm -rf /var/lib/OpenMRS/modules/procedures*.omod
-          sudo cp -r /apps/githubworkflows/kenyaemr-modules/openmrs-module-procedures/omod/target/procedures-*.omod /var/lib/OpenMRS/modules/
+          sudo rm -rf /var/lib/OpenMRS/modules/orderexpansion*.omod
+          sudo cp -r /apps/githubworkflows/kenyaemr-modules/openmrs-module-orderexpansion/omod/target/orderexpansion-*.omod /var/lib/OpenMRS/modules/
           sudo chown -R tomcat:tomcat /var/lib/OpenMRS/modules/
           sudo chmod +r /var/lib/OpenMRS/modules/*.omod
           sudo chmod 755 /var/lib/OpenMRS/modules/*.omod

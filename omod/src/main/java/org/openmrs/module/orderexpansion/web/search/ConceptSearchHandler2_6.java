@@ -1,4 +1,4 @@
-package org.openmrs.module.procedures.web.search;
+package org.openmrs.module.orderexpansion.web.search;
 
 import java.util.Collections;
 import java.util.List;

@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.procedures;
+package org.openmrs.module.orderexpansion;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

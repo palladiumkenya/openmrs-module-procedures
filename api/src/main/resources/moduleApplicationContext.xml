@@ -21,13 +21,13 @@
     which set audit info like dateCreated, changedBy, etc.-->
 
     <context:annotation-config/>
-    <context:component-scan base-package="org.openmrs.module.procedures" />
+    <context:component-scan base-package="org.openmrs.module.orderexpansion" />
 
     <bean id="procedureService"
           class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager" ref="transactionManager"/>
         <property name="target">
-            <bean class="org.openmrs.module.procedures.api.impl.ProcedureServiceImpl">
+            <bean class="org.openmrs.module.orderexpansion.api.impl.ProcedureServiceImpl">
                 <property name="procedureDao" ref="procedureDao"/>
             </bean>
         </property>
@@ -35,7 +35,7 @@
         <property name="transactionAttributeSource" ref="transactionAttributeSource"/>
     </bean>
 
-    <bean id="procedureDao" class="org.openmrs.module.procedures.api.dao.impl.ProcedureDaoImpl">
+    <bean id="procedureDao" class="org.openmrs.module.orderexpansion.api.dao.impl.ProcedureDaoImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory"/>
         </property>
@@ -43,7 +43,7 @@
      <bean parent="serviceContext">
         <property name="moduleService">
             <list>
-                <value>org.openmrs.module.procedures.api.ProcedureService</value>
+                <value>org.openmrs.module.orderexpansion.api.ProcedureService</value>
                 <ref bean="procedureService"/>
             </list>
         </property>
@@ -53,7 +53,7 @@
           class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager" ref="transactionManager"/>
         <property name="target">
-            <bean class="org.openmrs.module.procedures.api.impl.MedicalSupplyDispenseServiceImpl">
+            <bean class="org.openmrs.module.orderexpansion.api.impl.MedicalSupplyDispenseServiceImpl">
                 <property name="medicalSupplyDispenseDao" ref="medicalSupplyDispenseDao"/>
             </bean>
         </property>
@@ -61,7 +61,7 @@
         <property name="transactionAttributeSource" ref="transactionAttributeSource"/>
     </bean>
 
-    <bean id="medicalSupplyDispenseDao" class="org.openmrs.module.procedures.api.dao.impl.MedicalSupplyDispenseDaoImpl">
+    <bean id="medicalSupplyDispenseDao" class="org.openmrs.module.orderexpansion.api.dao.impl.MedicalSupplyDispenseDaoImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory"/>
         </property>
@@ -70,7 +70,7 @@
     <bean parent="serviceContext">
         <property name="moduleService">
             <list>
-                <value>org.openmrs.module.procedures.api.MedicalSupplyDispenseService</value>
+                <value>org.openmrs.module.orderexpansion.api.MedicalSupplyDispenseService</value>
                 <ref bean="medicalSupplyDispenseService"/>
             </list>
         </property>

@@ -103,9 +103,14 @@
     </changeSet>
 
     <changeSet id="${project.parent.artifactId}-2024031419999" author="jecihjoy">
-        <preConditions onFail="MARK_RAN">
+       <preConditions onFail="MARK_RAN">
+        <and>
             <tableExists tableName="procedures"/>
-        </preConditions>
+            <not>
+                <columnExists tableName="procedures" columnName="modality"/>
+            </not>
+        </and>
+    </preConditions>
         <addColumn tableName="procedures">
             <column name="modality" type="int"/>
         </addColumn>

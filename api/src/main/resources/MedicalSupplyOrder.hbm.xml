@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <joined-subclass name="org.openmrs.module.procedures.api.model.MedicalSupplyOrder" extends="org.openmrs.Order" table="medical_supplies_order" lazy="false">
+    <joined-subclass name="org.openmrs.module.orderexpansion.api.model.MedicalSupplyOrder" extends="org.openmrs.Order" table="medical_supplies_order" lazy="false">
 
         <key column="order_id" not-null="true" on-delete="cascade" />
         <property name="medicalSuppliesInventoryId" type="int" column="medical_supplies_inventory_id" length="11" />

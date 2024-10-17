@@ -1,4 +1,4 @@
-package org.openmrs.module.procedures.web.resources;
+package org.openmrs.module.orderexpansion.web.resources;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import org.openmrs.Encounter;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.procedures.api.ProcedureService;
-import org.openmrs.module.procedures.api.model.Procedure;
+import org.openmrs.module.orderexpansion.api.ProcedureService;
+import org.openmrs.module.orderexpansion.api.model.Procedure;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.RestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.PropertyGetter;

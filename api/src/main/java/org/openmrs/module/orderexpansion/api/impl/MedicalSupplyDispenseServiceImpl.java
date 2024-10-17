@@ -1,12 +1,12 @@
-package org.openmrs.module.procedures.api.impl;
+package org.openmrs.module.orderexpansion.api.impl;
 
 import javax.transaction.Transactional;
 
 import java.util.Optional;
 
-import org.openmrs.module.procedures.api.MedicalSupplyDispenseService;
-import org.openmrs.module.procedures.api.dao.MedicalSupplyDispenseDao;
-import org.openmrs.module.procedures.api.model.MedicalSupplyDispense;
+import org.openmrs.module.orderexpansion.api.MedicalSupplyDispenseService;
+import org.openmrs.module.orderexpansion.api.dao.MedicalSupplyDispenseDao;
+import org.openmrs.module.orderexpansion.api.model.MedicalSupplyDispense;
 
 @Transactional
 public class MedicalSupplyDispenseServiceImpl implements MedicalSupplyDispenseService {

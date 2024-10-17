@@ -22,7 +22,7 @@
 
 	<!-- Add here beans related to the web context -->
 
-	<context:component-scan base-package="org.openmrs.module.procedures.web" />
+	<context:component-scan base-package="org.openmrs.module.orderexpansion.web" />
  
 		
 </beans>

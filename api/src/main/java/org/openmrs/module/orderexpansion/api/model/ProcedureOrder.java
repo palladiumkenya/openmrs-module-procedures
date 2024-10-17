@@ -7,7 +7,7 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-package org.openmrs.module.procedures.api.model;
+package org.openmrs.module.orderexpansion.api.model;
 
 import java.util.Set;
 
