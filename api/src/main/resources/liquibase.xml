@@ -154,13 +154,16 @@
             </column>
             <column name="medical_supplies_inventory_id" type="int"/>
             <column name="quantity" type="int"/>
-			<column name="quantity_units" type="varchar(50)" />
+			<column name="quantity_units" type="int" />
             <column name="brand_name" type="varchar(100)"/>
         </createTable>
 
         <addForeignKeyConstraint constraintName="medical_supplies_order_order_id_fk"
                                  baseTableName="medical_supplies_order" baseColumnNames="order_id"
                                  referencedTableName="orders" referencedColumnNames="order_id"/>
+        <addForeignKeyConstraint constraintName="medical_supplies_quantity_units_fk"
+                                 baseTableName="medical_supplies" baseColumnNames="quantity_units"
+                                 referencedTableName="concept" referencedColumnNames="concept_id"/>
     
     </changeSet>
     <changeSet id="${project.parent.artifactId}-202410090917" author="makombe">
