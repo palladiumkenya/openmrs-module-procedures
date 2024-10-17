@@ -1,32 +1,62 @@
-openmrs-module-basic-module
-==========================
+# openmrs-module-orderexpansion
 
-A demonstration module for new OpenMRS module developers
+## Overview
 
-Description
------------
-This is a very basic module which can be used as a starting point in creating a new module.
+The Order Expansion module enhances the order management capabilities of KenyaEMR, an implementation of OpenMRS. It introduces support for additional order types, including:
 
-Building from Source
---------------------
-You will need to have Java 1.6+ and Maven 2.x+ installed.  Use the command 'mvn package' to 
-compile and package the module.  The .omod file will be in the omod/target folder.
+1. Procedure Orders
+2. Radiology Orders (e.g., imaging, scans)
+3. Medical Supply Orders (e.g., consumables, laboratory reagents)
 
-Alternatively you can add the snippet provided in the [Creating Modules](https://wiki.openmrs.org/x/cAEr) page to your 
-omod/pom.xml and use the mvn command:
+This expansion allows for more comprehensive and specialized order management within the KenyaEMR system.
 
-    mvn package -P deploy-web -D deploy.path="../../openmrs-1.8.x/webapp/src/main/webapp"
+## Features
 
-It will allow you to deploy any changes to your web 
-resources such as jsp or js files without re-installing the module. The deploy path says 
-where OpenMRS is deployed.
+- Seamless integration with existing KenyaEMR order management
+- Support for procedure, radiology, and medical supply order types
 
-Installation
-------------
-1. Build the module to produce the .omod file.
-2. Use the OpenMRS Administration > Manage Modules screen to upload and install the .omod file.
+## Prerequisites
 
-If uploads are not allowed from the web (changable via a runtime property), you can drop the omod
-into the ~/.OpenMRS/modules folder.  (Where ~/.OpenMRS is assumed to be the Application 
-Data Directory that the running openmrs is currently using.)  After putting the file in there 
-simply restart OpenMRS/tomcat and the module will be loaded and started.
+- Java 1.8 or higher
+- Maven 3.x or higher
+- OpenMRS Platform 2.x (specific version compatibility to be verified)
+
+## Building from Source
+
+To build the module from source:
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/your-repo/openmrs-module-orderexpansion.git
+   cd openmrs-module-orderexpansion
+   mvn clean install
+   ```
+
+2. Compile and package the module:
+   ```
+   mvn clean package
+   ```
+
+3. The compiled OMOD file will be available in the `omod/target` folder.
+
+4. Configure the module settings as needed. With relevant metadata. 
+   See [here](https://github.com/palladiumkenya/openmrs-config-kenyaemr/blob/main/configuration/ordertypes/ordertypes.csv) for extended order types.
+
+## Installation
+
+### Option 1: Web Upload (Recommended)
+
+1. Log in to your OpenMRS implementation as an administrator.
+2. Navigate to `Administration` > `Manage Modules`.
+3. Click on `Add or Upgrade Module`.
+4. Choose the OMOD file and upload it.
+
+### Option 2: Manual Installation
+
+1. Copy the OMOD file to the OpenMRS application data directory:
+   ```
+   ~/.OpenMRS/modules/
+   ```
+   Note: The actual path may vary depending on your OpenMRS configuration.
+
+2. Restart the OpenMRS application.
