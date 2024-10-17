@@ -161,8 +161,8 @@
         <addForeignKeyConstraint constraintName="medical_supplies_order_order_id_fk"
                                  baseTableName="medical_supplies_order" baseColumnNames="order_id"
                                  referencedTableName="orders" referencedColumnNames="order_id"/>
-        <addForeignKeyConstraint constraintName="medical_supplies_quantity_units_fk"
-                                 baseTableName="medical_supplies" baseColumnNames="quantity_units"
+        <addForeignKeyConstraint constraintName="medical_supplies_order_quantity_units_fk"
+                                 baseTableName="medical_supplies_order" baseColumnNames="quantity_units"
                                  referencedTableName="concept" referencedColumnNames="concept_id"/>
     
     </changeSet>
